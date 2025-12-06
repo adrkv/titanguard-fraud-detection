@@ -12,9 +12,9 @@ The system mimics a production-grade event-driven architecture, optimized for Ap
 
 ```mermaid
 graph LR
-    A[Producer Script] -- Stream Events --> B[Redpanda (Kafka)]
-    A -- Push Features --> C[Feast Feature Store]
-    C -- Store Stats --> D[(Redis)]
-    E[Client / Web] -- POST Request --> F[FastAPI Server]
-    F -- Fetch Features < 5ms --> C
-    F -- Return Verdict --> E
+    A["Producer Script"] -- "Stream Events" --> B["Redpanda (Kafka)"]
+    A -- "Push Features" --> C["Feast Feature Store"]
+    C -- "Store Stats" --> D[("Redis")]
+    E["Client / Web"] -- "POST Request" --> F["FastAPI Server"]
+    F -- "Fetch Features < 5ms" --> C
+    F -- "Return Verdict" --> E
