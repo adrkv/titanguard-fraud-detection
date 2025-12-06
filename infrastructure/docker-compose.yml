@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # 1. Redpanda (Lightweight Kafka for M1)
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    platform: linux/arm64
+    ports:
+      - 19092:19092
+      - 9092:9092
+    command:
+      - redpanda start
+      - --smp 1
+      - --memory 1G
+      - --overprovisioned
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
+
+  # 2. Redis (Online Feature Store)
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  # 3. MLflow (Model Registry)
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.7.1
+    ports:
+      - 5001:5000
+    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns --host 0.0.0.0
