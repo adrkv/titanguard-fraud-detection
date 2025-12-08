@@ -1,20 +1,33 @@
-# TitanGuard: Real-Time Fraud Detection Pipeline 🛡️
+# PeakWhale™ | Enterprise Fraud Defense Platform
 
-TitanGuard is an end-to-end MLOps pipeline designed to detect fraudulent credit card transactions in real-time. 
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-Live%20Dashboard-red)
+![MLflow](https://img.shields.io/badge/MLflow-Model%20Tracking-orange)
+![Feast](https://img.shields.io/badge/Feast-Feature%20Store-green)
+![Kafka](https://img.shields.io/badge/Redpanda-Event%20Streaming-black)
 
-Built with a modern streaming architecture, it processes live transaction events, manages features using a Feature Store, and serves decisions via a low-latency API.
+**PeakWhale™** is a real-time, event-driven fraud detection console designed to monitor high-velocity financial transactions. It utilizes an unsupervised AI model (Isolation Forest) to instantly block fraudulent activities while preserving legitimate capital.
 
-> **Current Status:** This project currently implements the **Data Engineering & Infrastructure layer** using deterministic logic (Rules-Based). The integration of a Machine Learning model (XGBoost/Isolation Forest) is the next phase on the roadmap.
+## 🚀 Key Features
 
-## 🏗️ Architecture
+* **Real-Time Ingestion**: Utilizing **Redpanda (Kafka)** and **Feast** to ingest and process transaction streams with sub-second latency.
+* **Unsupervised AI**: Powered by an **Isolation Forest** model that detects anomalies without needing pre-labeled fraud data.
+* **Deep Ocean UI**: A custom-engineered, dark-mode **Streamlit** dashboard optimized for Security Operations Centers (SOC).
+* **Auto-Retraining Pipeline**: A background service that continuously retrains the model on new data, logs performance to **MLflow**, and hot-swaps the model in the API without downtime.
+* **Snapshot Inspection**: "Freeze-frame" functionality allows analysts to inspect specific time windows without losing data continuity.
 
-The system mimics a production-grade event-driven architecture, optimized for Apple Silicon (M1/M2/M3) hardware.
+## 🧠 AI Logic
+
+The model analyzes **Spend Amount**, **Transaction Velocity**, **Location Distance**, and **Time of Day** to instantly approve or block transactions.
+
+## 🛠️ Architecture
 
 ```mermaid
 graph LR
-    A["Producer Script"] -- "Stream Events" --> B["Redpanda (Kafka)"]
-    A -- "Push Features" --> C["Feast Feature Store"]
-    C -- "Store Stats" --> D[("Redis")]
-    E["Client / Web"] -- "POST Request" --> F["FastAPI Server"]
-    F -- "Fetch Features < 5ms" --> C
-    F -- "Return Verdict" --> E
+    A[Producer] -->|JSON Stream| B(Redpanda/Kafka)
+    B -->|Stream| C(Feast Feature Store)
+    B -->|Context| D(FastAPI Model Server)
+    C -->|Historical Stats| D
+    D -->|Prediction| E[Dashboard]
+    F[Retraining Service] -->|New Model| G(MLflow Registry)
+    G -->|Load Model| D
