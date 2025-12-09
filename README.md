@@ -1,4 +1,4 @@
-# PeakWhale™ | Enterprise Fraud Defense Platform
+# PeakWhale™ Orca | Enterprise Fraud Defense Platform
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Live%20Dashboard-red)
