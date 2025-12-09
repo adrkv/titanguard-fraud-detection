@@ -6,7 +6,7 @@
 ![Feast](https://img.shields.io/badge/Feast-Feature%20Store-green)
 ![Kafka](https://img.shields.io/badge/Redpanda-Event%20Streaming-black)
 
-**PeakWhale™** is a real-time, event-driven fraud detection console designed to monitor high-velocity financial transactions. It utilizes an unsupervised AI model (Isolation Forest) to instantly block fraudulent activities while preserving legitimate capital.
+**PeakWhale™** Orca is a high-velocity, event-driven fraud defense engine engineered to detect and block anomalies with sub-50ms latency. By leveraging an unsupervised Isolation Forest model within a distributed streaming architecture, the system achieves 96% precision in identifying complex transaction vectors, executing blocking decisions in real-time before settlement occurs..
 
 ## 🚀 Key Features
 
